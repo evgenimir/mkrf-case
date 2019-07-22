@@ -37,6 +37,7 @@ mysql 5.3
 
 ```
 composer install
+php init
 ./yii migrate
 ```
 
