@@ -55,7 +55,3 @@ return [
     'charset' => 'utf8',
 ];
 ```
-
-Так же для корректной работы системы требуется создать и при необходимости настроить файлы:<br>
-/frontend/config/main-local.php<br>
-/backend/config/main-local.php
