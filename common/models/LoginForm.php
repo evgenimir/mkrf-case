@@ -5,6 +5,8 @@ use Yii;
 use yii\base\Model;
 
 /**
+ * Модель авторизации
+ *
  * Login form
  */
 class LoginForm extends Model
@@ -22,36 +24,44 @@ class LoginForm extends Model
     public function rules()
     {
         return [
-            // username and password are both required
             [['username', 'password'], 'required'],
-            // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
             ['password', 'validatePassword'],
         ];
     }
 
     /**
-     * Validates the password.
-     * This method serves as the inline validation for password.
+     * @return array
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Логин',
+            'password' => 'Пароль',
+            'rememberMe' => 'Запомнить',
+        ];
+    }
+    
+    /**
+     * Валидация пароля
      *
-     * @param string $attribute the attribute currently being validated
-     * @param array $params the additional name-value pairs given in the rule
+     * @param string $attribute
+     * @param array $params
      */
     public function validatePassword($attribute, $params)
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, 'Неправильный логин или пароль.');
             }
         }
     }
 
     /**
-     * Logs in a user using the provided username and password.
+     * Авторизует пользователя
      *
-     * @return bool whether the user is logged in successfully
+     * @return bool
      */
     public function login()
     {
@@ -63,7 +73,7 @@ class LoginForm extends Model
     }
 
     /**
-     * Finds user by [[username]]
+     * Ищет пользователя по имени
      *
      * @return User|null
      */
